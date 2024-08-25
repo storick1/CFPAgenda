@@ -14,8 +14,8 @@ Public Class EditarCuentas
     End Sub
 
     Private Sub BindData(userId As String)
-        Dim connectionString As String = "Server=LAPTOP-L4BR3OML\SQLEXPRESS;Database=CFP;User Id=sa;Password=aaa;"
-        Using connection As New SqlConnection(connectionString)
+        Dim connString As String = ConfigurationManager.ConnectionStrings("DefaultConnection").ConnectionString
+        Using connection As New SqlConnection(connString)
             Dim query As String = "SELECT IdUsuario, Nombre, IdRol, Contraseña FROM Usuarios WHERE IdUsuario = @IdUsuario"
             Using command As New SqlCommand(query, connection)
                 command.Parameters.AddWithValue("@IdUsuario", userId)
@@ -31,8 +31,8 @@ Public Class EditarCuentas
     End Sub
 
     Private Sub BindRoles()
-        Dim connectionString As String = "Server=LAPTOP-L4BR3OML\SQLEXPRESS;Database=CFP;User Id=sa;Password=aaa;"
-        Using connection As New SqlConnection(connectionString)
+        Dim connString As String = ConfigurationManager.ConnectionStrings("DefaultConnection").ConnectionString
+        Using connection As New SqlConnection(connString)
             Dim query As String = "SELECT IdRol, Rol FROM Roles"
             Using command As New SqlCommand(query, connection)
                 Dim adapter As New SqlDataAdapter(command)
@@ -55,8 +55,8 @@ Public Class EditarCuentas
         Dim idRol As String = If(ddlRol IsNot Nothing, ddlRol.SelectedValue, String.Empty)
         Dim contraseña As String = CType(formViewUsuario.FindControl("txtContraseña"), TextBox).Text
 
-        Dim connectionString As String = "Server=LAPTOP-L4BR3OML\SQLEXPRESS;Database=CFP;User Id=sa;Password=aaa;"
-        Using connection As New SqlConnection(connectionString)
+        Dim connString As String = ConfigurationManager.ConnectionStrings("DefaultConnection").ConnectionString
+        Using connection As New SqlConnection(connString)
             Dim query As String = "UPDATE Usuarios SET Nombre = @Nombre, IdRol = @IdRol, Contraseña = @Contraseña WHERE IdUsuario = @IdUsuario"
             Using command As New SqlCommand(query, connection)
                 command.Parameters.AddWithValue("@Nombre", nombre)

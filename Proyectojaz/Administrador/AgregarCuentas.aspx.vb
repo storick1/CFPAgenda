@@ -28,12 +28,12 @@ Public Class AgregarCuentas
         End If
 
         ' Cadena de conexión (ajusta esto a tu configuración)
-        Dim connectionString As String = "Server=VIRUXFIVE\SQLEXPRESS;Database=CFP;User Id=sa;Password=12345678;"
+        Dim connString As String = ConfigurationManager.ConnectionStrings("DefaultConnection").ConnectionString
 
         ' Consulta SQL para insertar el nuevo usuario
         Dim query As String = "INSERT INTO Usuarios (Nombre, Contraseña, IdRol) VALUES (@Nombre, @Contraseña, @IdRol)"
 
-        Using connection As New SqlConnection(connectionString)
+        Using connection As New SqlConnection(connString)
             Using command As New SqlCommand(query, connection)
                 ' Agregar parámetros para evitar inyecciones SQL
                 command.Parameters.AddWithValue("@Nombre", nombre)
@@ -58,10 +58,10 @@ Public Class AgregarCuentas
     End Sub
 
     Private Function ObtenerIdRol(rolNombre As String) As Integer?
-        Dim connectionString As String = "Server=VIRUXFIVE\SQLEXPRESS;Database=CFP;User Id=sa;Password=aaa;"
+        Dim connString As String = ConfigurationManager.ConnectionStrings("DefaultConnection").ConnectionString
         Dim query As String = "SELECT IdRol FROM Roles WHERE Rol = @Rol"
 
-        Using connection As New SqlConnection(connectionString)
+        Using connection As New SqlConnection(connString)
             Using command As New SqlCommand(query, connection)
                 command.Parameters.AddWithValue("@Rol", rolNombre)
                 Try
