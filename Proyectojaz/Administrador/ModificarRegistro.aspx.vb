@@ -11,8 +11,8 @@ Public Class ModificarServicios
     End Sub
 
     Private Sub CargarServicios()
-        Dim connectionString As String = "Server=LAPTOP-L4BR3OML\SQLEXPRESS;Database=CFP;User Id=sa;Password=aaa;"
-        Using connection As New SqlConnection(connectionString)
+        Dim connString As String = ConfigurationManager.ConnectionStrings("DefaultConnection").ConnectionString
+        Using connection As New SqlConnection(connString)
             Dim query As String = "SELECT IdServicio, Servicio FROM Servicios"
             Using command As New SqlCommand(query, connection)
                 Dim adapter As New SqlDataAdapter(command)
@@ -40,8 +40,8 @@ Public Class ModificarServicios
             If txtServicio IsNot Nothing Then
                 Dim nombreServicio As String = txtServicio.Text
 
-                Dim connectionString As String = "Server=LAPTOP-L4BR3OML\SQLEXPRESS;Database=CFP;User Id=sa;Password=aaa;"
-                Using connection As New SqlConnection(connectionString)
+                Dim connString As String = ConfigurationManager.ConnectionStrings("DefaultConnection").ConnectionString
+                Using connection As New SqlConnection(connString)
                     Dim query As String = "UPDATE Servicios SET Servicio = @Servicio WHERE IdServicio = @IdServicio"
                     Using command As New SqlCommand(query, connection)
                         command.Parameters.AddWithValue("@Servicio", nombreServicio)
@@ -68,8 +68,8 @@ Public Class ModificarServicios
         Try
             Dim idServicio As String = gvServicios.DataKeys(e.RowIndex).Value.ToString()
 
-            Dim connectionString As String = "Server=LAPTOP-L4BR3OML\SQLEXPRESS;Database=CFP;User Id=sa;Password=aaa;"
-            Using connection As New SqlConnection(connectionString)
+            Dim connString As String = ConfigurationManager.ConnectionStrings("DefaultConnection").ConnectionString
+            Using connection As New SqlConnection(connString)
                 Dim query As String = "DELETE FROM Servicios WHERE IdServicio = @IdServicio"
                 Using command As New SqlCommand(query, connection)
                     command.Parameters.AddWithValue("@IdServicio", idServicio)
@@ -86,8 +86,8 @@ Public Class ModificarServicios
 
     Private Function ObtenerServicioPorId(ByVal idServicio As String) As DataTable
         Dim dt As New DataTable()
-        Dim connectionString As String = "Server=LAPTOP-L4BR3OML\SQLEXPRESS;Database=CFP;User Id=sa;Password=aaa;"
-        Using connection As New SqlConnection(connectionString)
+        Dim connString As String = ConfigurationManager.ConnectionStrings("DefaultConnection").ConnectionString
+        Using connection As New SqlConnection(connString)
             Dim query As String = "SELECT IdServicio, Servicio FROM Servicios WHERE IdServicio = @IdServicio"
             Using command As New SqlCommand(query, connection)
                 command.Parameters.AddWithValue("@IdServicio", idServicio)
@@ -106,8 +106,8 @@ Public Class ModificarServicios
             If txtServicio IsNot Nothing Then
                 Dim nombreServicio As String = txtServicio.Text
 
-                Dim connectionString As String = "Server=LAPTOP-L4BR3OML\SQLEXPRESS;Database=CFP;User Id=sa;Password=aaa;"
-                Using connection As New SqlConnection(connectionString)
+                Dim connString As String = ConfigurationManager.ConnectionStrings("DefaultConnection").ConnectionString
+                Using connection As New SqlConnection(connString)
                     Dim query As String = "UPDATE Servicios SET Servicio = @Servicio WHERE IdServicio = @IdServicio"
                     Using command As New SqlCommand(query, connection)
                         command.Parameters.AddWithValue("@Servicio", nombreServicio)

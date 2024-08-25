@@ -10,8 +10,8 @@ Public Class ListadoCuentas
     End Sub
 
     Private Sub CargarCuentas()
-        Dim connectionString As String = "Server=LAPTOP-L4BR3OML\SQLEXPRESS;Database=CFP;User Id=sa;Password=aaa;"
-        Using connection As New SqlConnection(connectionString)
+        Dim connString As String = ConfigurationManager.ConnectionStrings("DefaultConnection").ConnectionString
+        Using connection As New SqlConnection(connString)
             Dim query As String = "SELECT u.IdUsuario, u.Nombre, r.Rol FROM Usuarios u INNER JOIN Roles r ON u.IdRol = r.IdRol"
             Using command As New SqlCommand(query, connection)
                 Dim adapter As New SqlDataAdapter(command)

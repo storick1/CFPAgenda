@@ -23,8 +23,8 @@ Public Class AgregarServicios
         End If
 
 
-        Dim connectionString As String = "Server=LAPTOP-L4BR3OML\SQLEXPRESS;Database=CFP;User Id=sa;Password=aaa;"
-        Using connection As New SqlConnection(connectionString)
+        Dim connString As String = ConfigurationManager.ConnectionStrings("DefaultConnection").ConnectionString
+        Using connection As New SqlConnection(connString)
             Dim query As String = "INSERT INTO Servicios (IdServicio, Servicio) VALUES (@IdServicio, @Servicio)"
             Using command As New SqlCommand(query, connection)
                 command.Parameters.AddWithValue("@IdServicio", idServicio)
@@ -42,8 +42,8 @@ Public Class AgregarServicios
     End Sub
 
     Private Sub CargarServicios()
-        Dim connectionString As String = "Server=LAPTOP-L4BR3OML\SQLEXPRESS;Database=CFP;User Id=sa;Password=aaa;"
-        Using connection As New SqlConnection(connectionString)
+        Dim connString As String = ConfigurationManager.ConnectionStrings("DefaultConnection").ConnectionString
+        Using connection As New SqlConnection(connString)
             Dim query As String = "SELECT IdServicio, Servicio FROM Servicios"
             Using command As New SqlCommand(query, connection)
                 Dim adapter As New SqlDataAdapter(command)
