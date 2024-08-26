@@ -219,6 +219,7 @@
     <Content Include="Img\Logo.jpeg" />
     <Content Include="Login.aspx" />
     <Content Include="Mecanico\HomeMec.aspx" />
+    <Content Include="Mecanico\Progreso.aspx" />
     <Content Include="Recep\AgendarCita.aspx" />
     <Content Include="Recep\consultarcitas.aspx" />
     <Content Include="Recep\consultarservicios.aspx" />
@@ -490,6 +491,13 @@
       <DependentUpon>HomeMec.aspx</DependentUpon>
       <SubType>ASPXCodebehind</SubType>
     </Compile>
+    <Compile Include="Mecanico\Progreso.aspx.designer.vb">
+      <DependentUpon>Progreso.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="Mecanico\Progreso.aspx.vb">
+      <DependentUpon>Progreso.aspx</DependentUpon>
+      <SubType>ASPXCodebehind</SubType>
+    </Compile>
     <Compile Include="Models\IdentityModels.vb" />
     <Compile Include="My Project\AssemblyInfo.vb" />
     <Compile Include="My Project\Application.Designer.vb">
@@ -622,6 +630,8 @@
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
+    <Folder Include="Controlador\" />
+    <Folder Include="Vistas\" />
   </ItemGroup>
   <PropertyGroup>
     <VisualStudioVersion Condition="'$(VisualStudioVersion)' == ''">10.0</VisualStudioVersion>

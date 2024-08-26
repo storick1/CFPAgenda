@@ -1,10 +1,9 @@
 {
   "ExpandedNodes": [
     "",
-    "\\CFPAgenda-master",
-    "\\CFPAgenda-master\\Proyectojaz",
-    "\\CFPAgenda-master\\Proyectojaz\\Administrador"
+    "\\Proyectojaz",
+    "\\Proyectojaz\\Recep"
   ],
-  "SelectedNode": "\\CFPAgenda-master\\Proyectojaz\\Administrador\\HomeAdmin.aspx",
+  "SelectedNode": "\\Proyectojaz\\Recep\\HomeRep.aspx.vb",
   "PreviewInSolutionExplorer": false
 }

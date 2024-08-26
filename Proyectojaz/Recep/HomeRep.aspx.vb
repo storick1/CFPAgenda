@@ -6,7 +6,11 @@
     End Sub
 
     Protected Sub btnAgendarCita_Click(ByVal sender As Object, ByVal e As EventArgs) Handles btnAgendarCita.Click
-        ' Redirigir o manejar la acción de agendar cita
+        ' Redirigir a    agendar cita
         Response.Redirect("AgendarCita.aspx")
+    End Sub
+
+    Protected Sub btnConsultarCita_Click(sender As Object, e As EventArgs) Handles btnConsultarCita.Click
+        Response.Redirect("consultarcitas.aspx")
     End Sub
 End Class

@@ -3,7 +3,7 @@
 Public Class consultarcitas
     Inherits System.Web.UI.Page
 
-    Private connectionString As String = "Server=VIRUXFIVE\SQLEXPRESS;Database=CFP;User Id=sa;Password=12345678;"
+    Dim connString As String = ConfigurationManager.ConnectionStrings("DefaultConnection").ConnectionString
 
     Protected Sub Page_Load(ByVal sender As Object, ByVal e As EventArgs) Handles Me.Load
         If Not IsPostBack Then
@@ -13,7 +13,7 @@ Public Class consultarcitas
 
     Private Sub LoadCitas()
         Try
-            Using conn As New SqlConnection(connectionString)
+            Using conn As New SqlConnection(connString)
                 Dim cmd As New SqlCommand("SELECT C.Folio, C.Fecha, C.Hora, CL.Nombre AS Cliente FROM Citas C INNER JOIN Clientes CL ON C.IdCliente = CL.IdCliente", conn)
                 conn.Open()
 

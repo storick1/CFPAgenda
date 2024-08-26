@@ -11,77 +11,86 @@ Option Strict On
 Option Explicit On
 
 
-Partial Public Class AgendarCita
+Partial Public Class Progreso
 
     '''<summary>
-    '''Control btnVolver.
+    '''Control form1.
     '''</summary>
     '''<remarks>
     '''Campo generado automáticamente.
     '''Para modificarlo, mueva la declaración del campo del archivo del diseñador al archivo de código subyacente.
     '''</remarks>
-    Protected WithEvents btnVolver As Global.System.Web.UI.WebControls.Button
+    Protected WithEvents form1 As Global.System.Web.UI.HtmlControls.HtmlForm
 
     '''<summary>
-    '''Control pnlModificarCita.
+    '''Control ScriptManager1.
     '''</summary>
     '''<remarks>
     '''Campo generado automáticamente.
     '''Para modificarlo, mueva la declaración del campo del archivo del diseñador al archivo de código subyacente.
     '''</remarks>
-    Protected WithEvents pnlModificarCita As Global.System.Web.UI.WebControls.Panel
+    Protected WithEvents ScriptManager1 As Global.System.Web.UI.ScriptManager
 
     '''<summary>
-    '''Control txtFolio.
+    '''Control chkLstActividades.
     '''</summary>
     '''<remarks>
     '''Campo generado automáticamente.
     '''Para modificarlo, mueva la declaración del campo del archivo del diseñador al archivo de código subyacente.
     '''</remarks>
-    Protected WithEvents txtFolio As Global.System.Web.UI.WebControls.TextBox
+    Protected WithEvents chkLstActividades As Global.System.Web.UI.WebControls.CheckBoxList
 
     '''<summary>
-    '''Control txtFecha.
+    '''Control txtNuevaActividad.
     '''</summary>
     '''<remarks>
     '''Campo generado automáticamente.
     '''Para modificarlo, mueva la declaración del campo del archivo del diseñador al archivo de código subyacente.
     '''</remarks>
-    Protected WithEvents txtFecha As Global.System.Web.UI.WebControls.TextBox
+    Protected WithEvents txtNuevaActividad As Global.System.Web.UI.WebControls.TextBox
 
     '''<summary>
-    '''Control txtHora.
+    '''Control btnAgregarActividad.
     '''</summary>
     '''<remarks>
     '''Campo generado automáticamente.
     '''Para modificarlo, mueva la declaración del campo del archivo del diseñador al archivo de código subyacente.
     '''</remarks>
-    Protected WithEvents txtHora As Global.System.Web.UI.WebControls.TextBox
+    Protected WithEvents btnAgregarActividad As Global.System.Web.UI.WebControls.Button
 
     '''<summary>
-    '''Control txtCliente.
+    '''Control UpdateProgress1.
     '''</summary>
     '''<remarks>
     '''Campo generado automáticamente.
     '''Para modificarlo, mueva la declaración del campo del archivo del diseñador al archivo de código subyacente.
     '''</remarks>
-    Protected WithEvents txtCliente As Global.System.Web.UI.WebControls.TextBox
+    Protected WithEvents UpdateProgress1 As Global.System.Web.UI.UpdateProgress
 
     '''<summary>
-    '''Control btnGuardar.
+    '''Control UpdatePanel1.
     '''</summary>
     '''<remarks>
     '''Campo generado automáticamente.
     '''Para modificarlo, mueva la declaración del campo del archivo del diseñador al archivo de código subyacente.
     '''</remarks>
-    Protected WithEvents btnGuardar As Global.System.Web.UI.WebControls.Button
+    Protected WithEvents UpdatePanel1 As Global.System.Web.UI.UpdatePanel
 
     '''<summary>
-    '''Control lblSuccess.
+    '''Control lblProgreso.
     '''</summary>
     '''<remarks>
     '''Campo generado automáticamente.
     '''Para modificarlo, mueva la declaración del campo del archivo del diseñador al archivo de código subyacente.
     '''</remarks>
-    Protected WithEvents lblSuccess As Global.System.Web.UI.WebControls.Label
+    Protected WithEvents lblProgreso As Global.System.Web.UI.WebControls.Label
+
+    '''<summary>
+    '''Control btnEliminarActividad.
+    '''</summary>
+    '''<remarks>
+    '''Campo generado automáticamente.
+    '''Para modificarlo, mueva la declaración del campo del archivo del diseñador al archivo de código subyacente.
+    '''</remarks>
+    Protected WithEvents btnEliminarActividad As Global.System.Web.UI.WebControls.Button
 End Class

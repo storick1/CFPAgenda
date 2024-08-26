@@ -1,82 +1,85 @@
 ﻿Imports System.Data.SqlClient
-Imports System.Configuration
 
 Public Class AgendarCita
     Inherits System.Web.UI.Page
 
-    Protected Sub Page_Load(ByVal sender As Object, ByVal e As System.EventArgs) Handles Me.Load
-        If Not IsPostBack Then
-            CargarClientes()
-            CargarAutos()
-            CargarServicios()
+    Dim connString As String = ConfigurationManager.ConnectionStrings("DefaultConnection").ConnectionString
+
+    Protected Sub Page_Load(ByVal sender As Object, ByVal e As EventArgs) Handles Me.Load
+        ' No es necesario cargar datos si todos los campos son manuales
+    End Sub
+
+    Protected Sub btnGuardar_Click(ByVal sender As Object, ByVal e As EventArgs)
+        Dim folio As String = txtFolio.Text
+        Dim fecha As String = txtFecha.Text
+        Dim hora As String = txtHora.Text
+        Dim nombreCliente As String = txtCliente.Text
+
+        If String.IsNullOrEmpty(folio) OrElse String.IsNullOrEmpty(nombreCliente) Then
+            lblSuccess.Text = "Por favor, complete todos los campos obligatorios."
+            lblSuccess.ForeColor = System.Drawing.Color.Red
+            Return
         End If
-    End Sub
 
-    Private Sub CargarClientes()
-        Dim connString As String = ConfigurationManager.ConnectionStrings("DefaultConnection").ConnectionString
+        Dim idCliente As Integer = GetClienteIdByName(nombreCliente)
+
+        If idCliente = 0 Then
+            lblSuccess.Text = "El cliente no existe."
+            lblSuccess.ForeColor = System.Drawing.Color.Red
+            Return
+        End If
+
+        ' Validar y convertir la fecha y hora
+        Dim fechaValida As DateTime
+        Dim horaValida As DateTime
+
+        If Not DateTime.TryParse(fecha, fechaValida) Then
+            lblSuccess.Text = "La fecha ingresada no es válida."
+            lblSuccess.ForeColor = System.Drawing.Color.Red
+            Return
+        End If
+
+        If Not DateTime.TryParse(hora, horaValida) Then
+            lblSuccess.Text = "La hora ingresada no es válida."
+            lblSuccess.ForeColor = System.Drawing.Color.Red
+            Return
+        End If
+
         Using conn As New SqlConnection(connString)
-            Dim cmd As New SqlCommand("SELECT IdCliente, Nombre FROM Clientes", conn)
-            conn.Open()
-            Dim reader As SqlDataReader = cmd.ExecuteReader()
-            ddlCliente.DataSource = reader
-            ddlCliente.DataTextField = "Nombre"
-            ddlCliente.DataValueField = "IdCliente"
-            ddlCliente.DataBind()
-            ddlCliente.Items.Insert(0, New ListItem("--Seleccione Cliente--", "0"))
-        End Using
-    End Sub
-
-    Private Sub CargarAutos()
-        Dim connString As String = ConfigurationManager.ConnectionStrings("DefaultConnection").ConnectionString
-        Using conn As New SqlConnection(connString)
-            Dim cmd As New SqlCommand("SELECT IdAuto, Modelo FROM Autos", conn)
-            conn.Open()
-            Dim reader As SqlDataReader = cmd.ExecuteReader()
-            ddlAuto.DataSource = reader
-            ddlAuto.DataTextField = "Modelo" ' O el nombre del campo que desees mostrar
-            ddlAuto.DataValueField = "IdAuto"
-            ddlAuto.DataBind()
-            ddlAuto.Items.Insert(0, New ListItem("--Seleccione Auto--", "0"))
-        End Using
-    End Sub
-
-    Private Sub CargarServicios()
-        Dim connString As String = ConfigurationManager.ConnectionStrings("DefaultConnection").ConnectionString
-        Using conn As New SqlConnection(connString)
-            Dim cmd As New SqlCommand("SELECT IdServicio, Servicio FROM Servicios", conn)
-            conn.Open()
-            Dim reader As SqlDataReader = cmd.ExecuteReader()
-            ddlServicio.DataSource = reader
-            ddlServicio.DataTextField = "Servicio"
-            ddlServicio.DataValueField = "IdServicio"
-            ddlServicio.DataBind()
-            ddlServicio.Items.Insert(0, New ListItem("--Seleccione Servicio--", "0"))
-        End Using
-    End Sub
-
-    Protected Sub btnGuardar_Click(sender As Object, e As EventArgs)
-        Dim connString As String = ConfigurationManager.ConnectionStrings("DefaultConnection").ConnectionString
-        Using conn As New SqlConnection(connString)
-            Dim idCliente As Integer = Integer.Parse(ddlCliente.SelectedValue)
-            Dim idAuto As Integer = Integer.Parse(ddlAuto.SelectedValue)
-            Dim idServicio As Integer = Integer.Parse(ddlServicio.SelectedValue)
-            Dim kilometraje As String = txtKilometraje.Text
-            Dim notas As String = txtNotas.Text
-
-            Dim cmd As New SqlCommand("INSERT INTO Citas (IdCliente, IdAuto, IdServicio, Kilometraje, Notas) VALUES (@IdCliente, @IdAuto, @IdServicio, @Kilometraje, @Notas)", conn)
+            Dim cmd As New SqlCommand("INSERT INTO Citas (Folio, Fecha, Hora, IdCliente) VALUES (@Folio, @Fecha, @Hora, @IdCliente)", conn)
+            cmd.Parameters.AddWithValue("@Folio", folio)
+            cmd.Parameters.AddWithValue("@Fecha", fechaValida.ToString("yyyy-MM-dd"))
+            cmd.Parameters.AddWithValue("@Hora", horaValida.ToString("HH:mm:ss"))
             cmd.Parameters.AddWithValue("@IdCliente", idCliente)
-            cmd.Parameters.AddWithValue("@IdAuto", idAuto)
-            cmd.Parameters.AddWithValue("@IdServicio", idServicio)
-            cmd.Parameters.AddWithValue("@Kilometraje", kilometraje)
-            cmd.Parameters.AddWithValue("@Notas", notas)
 
             conn.Open()
-            cmd.ExecuteNonQuery()
+            Dim rowsAffected As Integer = cmd.ExecuteNonQuery()
+            If rowsAffected > 0 Then
+                lblSuccess.Text = "Cita agendada exitosamente."
+                lblSuccess.ForeColor = System.Drawing.Color.Green
+            Else
+                lblSuccess.Text = "Error al agendar la cita."
+                lblSuccess.ForeColor = System.Drawing.Color.Red
+            End If
         End Using
-
-        lblSuccess.Text = "Cita agendada con éxito."
     End Sub
+
+
+    Private Function GetClienteIdByName(ByVal nombre As String) As Integer
+        Using conn As New SqlConnection(connString)
+            Dim cmd As New SqlCommand("SELECT IdCliente FROM Clientes WHERE Nombre = @Nombre", conn)
+            cmd.Parameters.AddWithValue("@Nombre", nombre)
+
+            conn.Open()
+            Dim result = cmd.ExecuteScalar()
+            If result IsNot Nothing Then
+                Return Convert.ToInt32(result)
+            End If
+        End Using
+        Return 0
+    End Function
     Protected Sub btnVolver_Click(sender As Object, e As EventArgs) Handles btnVolver.Click
         Response.Redirect("HomeRep.aspx")
     End Sub
+
 End Class
