@@ -7,9 +7,6 @@
                 <asp:Button ID="btnAgendarCita" runat="server" Text="Agendar Cita" CssClass="btn btn-primary btn-block" />
             </div>
             <div class="col-md-4 mb-3">
-                <asp:Button ID="btnModificarCita" runat="server" Text="Modificar Cita" CssClass="btn btn-secondary btn-block" />
-            </div>
-            <div class="col-md-4 mb-3">
                 <asp:Button ID="btnConsultarCita" runat="server" Text="Consultar Cita" CssClass="btn btn-info btn-block" />
             </div>
         </div>
